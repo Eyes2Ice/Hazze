@@ -40,11 +40,10 @@ function hazze_setup()
 	add_theme_support('post-thumbnails');
 
 	// This theme uses wp_nav_menu() in one location.
-	register_nav_menus(
-		array(
-			'menu-1' => esc_html__('Primary', 'hazze'),
-		)
-	);
+	register_nav_menus(array(
+		'header'    => 'Шапка',    //Название месторасположения меню в шаблоне
+		'footer' => 'Футер'      //Название другого месторасположения меню в шаблоне
+	));
 
 	/*
 		* Switch default core markup for search form, comment form, and comments
@@ -109,3 +108,26 @@ function hazze_scripts()
 	wp_enqueue_script('hazze-script-main', get_template_directory_uri() . '/js/main.js', array(), _S_VERSION, true);
 }
 add_action('wp_enqueue_scripts', 'hazze_scripts');
+
+if (function_exists('acf_add_options_page')) {
+
+	acf_add_options_page(array(
+		'page_title' 	=> 'Основные настройки',
+		'menu_title'	=> 'Настройки темы',
+		'menu_slug' 	=> 'theme-general-settings',
+		'capability'	=> 'edit_posts',
+		'redirect'		=> true
+	));
+
+	acf_add_options_sub_page(array(
+		'page_title' 	=> 'Настройки шапки',
+		'menu_title'	=> 'Header',
+		'parent_slug'	=> 'theme-general-settings',
+	));
+
+	acf_add_options_sub_page(array(
+		'page_title' 	=> 'Настройки подвала',
+		'menu_title'	=> 'Footer',
+		'parent_slug'	=> 'theme-general-settings',
+	));
+}
