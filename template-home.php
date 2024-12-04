@@ -11,11 +11,10 @@ get_header();
         <div class="row">
             <div class="col-lg-5">
                 <div class="hs-text">
-                    <span>Office Fashion</span>
-                    <h2>New Fashion</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua.</p>
-                    <a href="#" class="primary-btn">Read More</a>
+                    <span><?php the_field('hero_subtitle') ?></span>
+                    <h2><?php the_field('hero_title') ?></h2>
+                    <p><?php the_field('hero_description') ?></p>
+                    <a href="<?php echo get_field('hero_btn')['url'] ?>" class="primary-btn"><?php echo get_field('hero_btn')['title'] ?></a>
                 </div>
             </div>
         </div>
@@ -29,21 +28,17 @@ get_header();
         <div class="row">
             <div class="col-lg-6">
                 <div class="as-pic">
-                    <img src="<?php echo get_template_directory_uri() ?>/img/about-us.jpg" alt="">
+                    <img src="<?php echo get_field('about-us_img')['url'] ?>" alt="<?php echo get_field('about-us_img')['alt'] ?>">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="as-text">
                     <div class="section-title">
-                        <span>About us</span>
-                        <h2>About Story</h2>
+                        <span><?php the_field('about-us_subtitle') ?></span>
+                        <h2><?php the_field('about-us_title') ?></h2>
                     </div>
-                    <p class="f-para">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. </p>
-                    <p class="s-para">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur
-                        adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                    <a href="#" class="primary-btn">Read More</a>
+                    <p class="f-para"><?php the_field('about-us_description') ?></p>
+                    <a href="<?php echo get_field('about-us_btn')['url'] ?>" class="primary-btn"><?php echo get_field('about-us_btn')['title'] ?></a>
                 </div>
             </div>
         </div>
@@ -57,33 +52,32 @@ get_header();
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title">
-                    <span>Our Services</span>
-                    <h2>Best Services Save The World</h2>
+                    <span><?php the_field('services_subtitle') ?></span>
+                    <h2><?php the_field('services_title') ?></h2>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-6">
-                <div class="service-item">
-                    <img src="<?php echo get_template_directory_uri() ?>/img/services/service-1.png" alt="">
-                    <h4>Modern Design</h4>
-                    <p>Brook embraces a modern look with various enhanced pre-defined page elements.</p>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="service-item">
-                    <img src="<?php echo get_template_directory_uri() ?>/img/services/service-2.png" alt="">
-                    <h4>Content</h4>
-                    <p>Brook embraces a modern look with various enhanced pre-defined page elements.</p>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="service-item">
-                    <img src="<?php echo get_template_directory_uri() ?>/img/services/service-3.png" alt="">
-                    <h4>Make Up</h4>
-                    <p>Brook embraces a modern look with various enhanced pre-defined page elements.</p>
-                </div>
-            </div>
+        <div class="row services-custom-row">
+            <?php
+            if (have_rows('services-repeater')):
+                while (have_rows('services-repeater')) : the_row(); ?>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="service-item">
+                            <img src="<?php the_sub_field('image') ?>" alt="">
+                            <h4><?php the_sub_field('title') ?></h4>
+                            <p><?php the_sub_field('description') ?></p>
+                        </div>
+                    </div>
+
+                    <?php the_sub_field('sub_field'); ?>
+
+            <?php endwhile;
+            else :
+                echo 'Ошибка: поля не найдены';
+            endif;
+            ?>
+
         </div>
     </div>
 </section>
@@ -95,44 +89,44 @@ get_header();
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title">
-                    <span>Our Portfolio</span>
-                    <h2>Turn Your Dream Into Reality</h2>
+                    <span><?php the_field('oportfol_subtitle') ?></span>
+                    <h2><?php the_field('oportfol_title') ?></h2>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6">
-                <div class="portfolio-item set-bg large-item" data-setbg="<?php echo get_template_directory_uri() ?>/img/portfolio/portfolio-1.jpg">
+                <div class="portfolio-item set-bg large-item" data-setbg="<?php echo get_field('oportfol_img1')['url'] ?>">
                     <div class="pi-hover">
                         <a href="#" class="chain-icon"><i class="fa fa-chain"></i></a>
-                        <a href="<?php echo get_template_directory_uri() ?>/img/portfolio/portfolio-1.jpg" class="search-icon image-popup"><i
+                        <a href="<?php echo get_field('oportfol_img1')['url'] ?>" class="search-icon image-popup"><i
                                 class="fa fa-search"></i></a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-6">
-                <div class="portfolio-item set-bg" data-setbg="<?php echo get_template_directory_uri() ?>/img/portfolio/portfolio-2.jpg">
+                <div class="portfolio-item set-bg" data-setbg="<?php echo get_field('oportfol_img2')['sizes']['hazze-custom'] ?>">
                     <div class="pi-hover">
                         <a href="#" class="chain-icon"><i class="fa fa-chain"></i></a>
-                        <a href="<?php echo get_template_directory_uri() ?>/img/portfolio/portfolio-2.jpg" class="search-icon image-popup"><i
+                        <a href="<?php echo get_field('oportfol_img2')['url'] ?>" class="search-icon image-popup"><i
                                 class="fa fa-search"></i></a>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="portfolio-item set-bg" data-setbg="<?php echo get_template_directory_uri() ?>/img/portfolio/portfolio-3.jpg">
+                        <div class="portfolio-item set-bg" data-setbg="<?php echo get_field('oportfol_img3')['url'] ?>">
                             <div class="pi-hover">
                                 <a href="#" class="chain-icon"><i class="fa fa-chain"></i></a>
-                                <a href="<?php echo get_template_directory_uri() ?>/img/portfolio/portfolio-3.jpg" class="search-icon image-popup"><i
+                                <a href="<?php echo get_field('oportfol_img3')['url'] ?>" class="search-icon image-popup"><i
                                         class="fa fa-search"></i></a>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="portfolio-item set-bg" data-setbg="<?php echo get_template_directory_uri() ?>/img/portfolio/portfolio-4.jpg">
+                        <div class="portfolio-item set-bg" data-setbg="<?php echo get_field('oportfol_img4')['url'] ?>">
                             <div class="pi-hover">
                                 <a href="#" class="chain-icon"><i class="fa fa-chain"></i></a>
-                                <a href="<?php echo get_template_directory_uri() ?>/img/portfolio/portfolio-4.jpg" class="search-icon image-popup"><i
+                                <a href="<?php echo get_field('oportfol_img4')['url'] ?>" class="search-icon image-popup"><i
                                         class="fa fa-search"></i></a>
                             </div>
                         </div>

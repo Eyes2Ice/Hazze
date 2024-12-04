@@ -443,6 +443,10 @@ ol {
 	margin-bottom: 25px;
 }
 
+.services-custom-row {
+	justify-content: center;
+}
+
 /*---------------------
   Portfolio Section
 -----------------------*/
