@@ -116,7 +116,7 @@ if (function_exists('acf_add_options_page')) {
 		'menu_title'	=> 'Настройки темы',
 		'menu_slug' 	=> 'theme-general-settings',
 		'capability'	=> 'edit_posts',
-		'redirect'		=> true
+		'redirect'		=> false
 	));
 
 	acf_add_options_sub_page(array(
@@ -133,3 +133,10 @@ if (function_exists('acf_add_options_page')) {
 }
 
 add_image_size('hazze-custom', 785, 393, true);
+
+add_shortcode('pink-banner', 'foobar_shortcode');
+
+function foobar_shortcode()
+{
+	require 'shortcodes/pink-banner.php';
+}

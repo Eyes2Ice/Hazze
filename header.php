@@ -29,7 +29,7 @@
 					</div>
 				</div>
 				<div class="col-lg-10 col-md-10">
-					<div class="main-menu mobile-menu">\
+					<div class="main-menu mobile-menu">
 						<?php
 						wp_nav_menu(array(
 							'container'       => '',           // (string) Контейнер меню. Обворачиватель ul. Указывается тег контейнера (по умолчанию в тег div)

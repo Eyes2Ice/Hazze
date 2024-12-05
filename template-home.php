@@ -145,33 +145,33 @@ get_header();
             <div class="col-lg-6">
                 <div class="counter-text">
                     <div class="section-title">
-                        <span>Number Speaks</span>
-                        <h2>We have a lot of <br />experience</h2>
+                        <span><?php the_field('numbers_subtitle') ?></span>
+                        <h2><?php the_field('numbers_title') ?></h2>
                     </div>
-                    <a href="#" class="primary-btn">Read More</a>
+                    <a href="<?php echo get_field('numbers_btn')['url'] ?>" class="primary-btn"><?php echo get_field('numbers_btn')['title'] ?></a>
                 </div>
             </div>
             <div class="col-lg-6">
-                <div class="counter-item">
-                    <div class="ci-number count">
-                        2034
-                    </div>
-                    <div class="ci-text">
-                        <h4>Successful projects</h4>
-                        <p>Since its establishment in 2005, Fashion has been focusing on project management &
-                            implementation through cooperation.</p>
-                    </div>
-                </div>
-                <div class="counter-item">
-                    <div class="ci-number count">
-                        1054
-                    </div>
-                    <div class="ci-text">
-                        <h4>Events</h4>
-                        <p>Since its establishment in 2005, Fashion has been focusing on project management &
-                            implementation through cooperation.</p>
-                    </div>
-                </div>
+                <?php
+                if (have_rows('numbers_achievements-repeater')):
+                    while (have_rows('numbers_achievements-repeater')) : the_row(); ?>
+                        <div class="counter-item">
+                            <div class="ci-number count">
+                                <?php the_sub_field('number') ?>
+                            </div>
+                            <div class="ci-text">
+                                <h4><?php the_sub_field('title') ?></h4>
+                                <p><?php the_sub_field('description') ?></p>
+                            </div>
+                        </div>
+
+                        <?php the_sub_field('sub_field'); ?>
+
+                <?php endwhile;
+                else :
+                    echo 'Ошибка: поля не найдены';
+                endif;
+                ?>
             </div>
         </div>
     </div>
@@ -182,73 +182,44 @@ get_header();
 <section class="testimonial-section spad">
     <div class="container">
         <div class="row testimonial-slider owl-carousel">
-            <div class="col-lg-6">
-                <div class="testimonial-item">
-                    <div class="ti-pic">
-                        <img src="<?php echo get_template_directory_uri() ?>/img/testimonial/testimonial-1.jpg" alt="">
-                    </div>
-                    <div class="ti-text">
-                        <div class="ti-title">
-                            <h4>Travis Crawford</h4>
-                            <span>Designer</span>
+            <?php
+            $i = 1;
+            if (have_rows('numbers_slider')):
+                while (have_rows('numbers_slider')) : the_row();
+                    $isEven = false;
+                    if ($i % 2 === 0) $isEven = true;
+            ?>
+                    <div class="col-lg-6">
+                        <div class="testimonial-item" <?php if ($isEven) echo 'style="background: #e32879"' ?>>
+                            <div class="ti-pic">
+                                <img src="<?php echo get_sub_field('image')['sizes']['thumbnail'] ?>" alt="<?php echo get_sub_field('image')['alt'] ?>">
+                            </div>
+                            <div class="ti-text">
+                                <div class="ti-title">
+                                    <h4><?php the_sub_field('name') ?></h4>
+                                    <span <?php if ($isEven) echo 'style="color: #fff"' ?>><?php the_sub_field('position') ?></span>
+                                </div>
+                                <p <?php if ($isEven) echo 'style="color: #fff"' ?>><?php the_sub_field('description') ?></p>
+                            </div>
                         </div>
-                        <p>Adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore
-                            magnam aliquam quaerat voluptatem.</p>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="testimonial-item">
-                    <div class="ti-pic">
-                        <img src="<?php echo get_template_directory_uri() ?>/img/testimonial/testimonial-2.jpg" alt="">
-                    </div>
-                    <div class="ti-text">
-                        <div class="ti-title">
-                            <h4>Noah Padilla</h4>
-                            <span>Designer</span>
-                        </div>
-                        <p>Adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore
-                            magnam aliquam quaerat voluptatem.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="testimonial-item">
-                    <div class="ti-pic">
-                        <img src="<?php echo get_template_directory_uri() ?>/img/testimonial/testimonial-3.jpg" alt="">
-                    </div>
-                    <div class="ti-text">
-                        <div class="ti-title">
-                            <h4>Noah Padilla</h4>
-                            <span>Designer</span>
-                        </div>
-                        <p>Adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore
-                            magnam aliquam quaerat voluptatem.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="testimonial-item">
-                    <div class="ti-pic">
-                        <img src="<?php echo get_template_directory_uri() ?>/img/testimonial/testimonial-4.jpg" alt="">
-                    </div>
-                    <div class="ti-text">
-                        <div class="ti-title">
-                            <h4>Noah Padilla</h4>
-                            <span>Designer</span>
-                        </div>
-                        <p>Adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore
-                            magnam aliquam quaerat voluptatem.</p>
-                    </div>
-                </div>
-            </div>
+                    <?php the_sub_field('sub_field'); ?>
+
+            <?php
+                    $i++;
+                endwhile;
+            else :
+                echo 'Ошибка: поля не найдены';
+            endif;
+            ?>
         </div>
     </div>
 </section>
 <!-- Testimonial Section End -->
 
 <!-- Call To Action Section Begin -->
-<section class="callto-section set-bg" data-setbg="<?php echo get_template_directory_uri() ?>/img/ctc-bg.jpg">
+<?php echo do_shortcode('[pink-banner]') ?>
+<!-- <section class="callto-section set-bg" data-setbg="<?php echo get_template_directory_uri() ?>/img/ctc-bg.jpg">
     <div class="container">
         <div class="row">
             <div class="col-lg-10 m-auto">
@@ -262,7 +233,7 @@ get_header();
             </div>
         </div>
     </div>
-</section>
+</section> -->
 <!-- Call To Action Section End -->
 
 <!-- Member Section Begin -->
