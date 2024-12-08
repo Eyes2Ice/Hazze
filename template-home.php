@@ -242,66 +242,61 @@ get_header();
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title">
-                    <span>Our Team</span>
-                    <h2>Top Designers</h2>
+                    <span><?php the_field('ourteam_subtitle') ?></span>
+                    <h2><?php the_field('ourteam_title') ?></h2>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-4 col-md-6">
-                <div class="member-item set-bg" data-setbg="<?php echo get_template_directory_uri() ?>/img/member/member-1.jpg">
-                    <div class="mi-text">
-                        <p>Quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora
-                            incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
-                        <div class="mt-title">
-                            <h4>Jacob Gomez</h4>
-                            <span>Designer</span>
-                        </div>
-                        <div class="mt-social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa fa-pinterest"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="member-item set-bg" data-setbg="<?php echo get_template_directory_uri() ?>/img/member/member-2.jpg">
-                    <div class="mi-text">
-                        <p>Quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora
-                            incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
-                        <div class="mt-title">
-                            <h4>Jacob Gomez</h4>
-                            <span>Designer</span>
-                        </div>
-                        <div class="mt-social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa fa-pinterest"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="member-item set-bg" data-setbg="<?php echo get_template_directory_uri() ?>/img/member/member-3.jpg">
-                    <div class="mi-text">
-                        <p>Quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora
-                            incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
-                        <div class="mt-title">
-                            <h4>Jacob Gomez</h4>
-                            <span>Designer</span>
-                        </div>
-                        <div class="mt-social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa fa-pinterest"></i></a>
+            <?php
+            // задаем нужные нам критерии выборки данных из БД
+            $args = array(
+                'posts_per_page' => 3,
+                'post_type' => 'our-team',
+            );
+
+            $query = new WP_Query($args);
+
+            // Цикл
+            if ($query->have_posts()) {
+                while ($query->have_posts()) {
+                    $query->the_post(); ?>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="member-item set-bg" data-setbg="<?php echo get_the_post_thumbnail_url(); ?>">
+                            <div class="mi-text <?php 
+                            $pinkMiText = get_field('ourteam_pink-card');
+                            if ($pinkMiText) echo 'mi-text--pink';
+                            ?>">
+                                <?php the_content(); ?>
+                                <div class="mt-title">
+                                    <h4><?php the_title(); ?></h4>
+                                    <span><?php the_field('ourteam_position') ?></span>
+                                </div>
+                                <div class="mt-social">
+                                    <?php
+                                    if (have_rows('ourteam-repeater')):
+                                        while (have_rows('ourteam-repeater')) : the_row(); ?>
+                                            <a href="<?php the_sub_field('link'); ?>"><i class="fa fa-<?php the_sub_field('social'); ?>"></i></a>
+                                    <?php endwhile;
+                                    else :
+                                        echo 'Ошибка: поля не найдены';
+                                    endif;
+                                    ?>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
+
+            <?php }
+            } else {
+                // Постов не найдено
+            }
+
+            // Возвращаем оригинальные данные поста. Сбрасываем $post.
+            wp_reset_postdata();
+            ?>
+
         </div>
     </div>
 </section>

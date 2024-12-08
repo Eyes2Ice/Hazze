@@ -750,8 +750,16 @@ ol {
 	transition: all 0.5s ease-out;
 }
 
+.member-item .mi-text--pink {
+	background: #e32879;
+}
+
 .member-item .mi-text p {
 	margin-bottom: 32px;
+}
+
+.mi-text--pink p {
+	color: white;
 }
 
 .member-item .mi-text .mt-title {
@@ -772,6 +780,10 @@ ol {
 	letter-spacing: 1px;
 }
 
+.member-item .mi-text--pink .mt-title span {
+	color: #ffffff;
+}
+
 .member-item .mi-text .mt-social a {
 	display: inline-block;
 	font-size: 16px;
@@ -783,6 +795,11 @@ ol {
 	background: #303030;
 	border-radius: 50%;
 	margin-right: 3px;
+}
+
+.member-item .mi-text--pink .mt-social a {
+	color: #e32879;
+	background: #ffffff;
 }
 
 .member-item .mi-text .mt-social a:last-child {
