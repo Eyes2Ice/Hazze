@@ -140,3 +140,9 @@ function foobar_shortcode()
 {
 	require 'shortcodes/pink-banner.php';
 }
+
+add_filter('excerpt_length', function () {
+	return 15;
+});
+
+add_filter('excerpt_more', fn() => '...');

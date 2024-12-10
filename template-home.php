@@ -264,10 +264,10 @@ get_header();
 
                     <div class="col-lg-4 col-md-6">
                         <div class="member-item set-bg" data-setbg="<?php echo get_the_post_thumbnail_url(); ?>">
-                            <div class="mi-text <?php 
-                            $pinkMiText = get_field('ourteam_pink-card');
-                            if ($pinkMiText) echo 'mi-text--pink';
-                            ?>">
+                            <div class="mi-text <?php
+                                                $pinkMiText = get_field('ourteam_pink-card');
+                                                if ($pinkMiText) echo 'mi-text--pink';
+                                                ?>">
                                 <?php the_content(); ?>
                                 <div class="mt-title">
                                     <h4><?php the_title(); ?></h4>
@@ -314,62 +314,61 @@ get_header();
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
-                <div class="blog-item">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="bi-pic set-bg" data-setbg="<?php echo get_template_directory_uri() ?>/img/blog/blog-1.jpg"></div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="bi-text">
-                                <ul>
-                                    <li><i class="fa fa-calendar-o"></i> August 9, 2019</li>
-                                    <li><i class="fa fa-commenting-o"></i> 0</li>
-                                </ul>
-                                <h4><a href="#">Every Single Way You Can Wear Pastel Makeup This Spring</a></h4>
-                                <p>Never ever think of giving up. Winners never quit and</p>
-                                <div class="bt-author">
-                                    <div class="ba-pic">
-                                        <img src="<?php echo get_template_directory_uri() ?>/img/blog/author-1.jpg" alt="">
-                                    </div>
-                                    <div class="ba-text">
-                                        <h5>Jeff Rodriguez</h5>
-                                        <span>Designer</span>
+            <?php
+            // задаем нужные нам критерии выборки данных из БД
+            $args = array(
+                'posts_per_page' => 2,
+                'post_type' => 'post',
+            );
+
+            $query = new WP_Query($args);
+
+            // Цикл
+            if ($query->have_posts()) {
+                while ($query->have_posts()) {
+                    $query->the_post(); ?>
+
+                    <div class="col-md-6">
+                        <div class="blog-item">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="bi-pic set-bg" data-setbg="<?php echo get_the_post_thumbnail_url(); ?>"></div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="bi-text">
+                                        <ul>
+                                            <li><i class="fa fa-calendar-o"></i> <?php echo get_the_date(); ?></li>
+                                        </ul>
+                                        <h4><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
+                                        <?php the_excerpt(); ?>
+                                        <div class="bt-author">
+                                            <div class="ba-pic">
+                                                <?php
+                                                global $post;
+                                                $url = get_avatar_url($post, "size=100&default=monsterid");
+                                                $img = '<img alt="" src="' . $url . '">';
+                                                echo $img;
+                                                ?>
+                                            </div>
+                                            <div class="ba-text">
+                                                <h5><?php the_author(); ?></h5>
+                                                <span><?php echo wp_roles()->roles['administrator']['name']; ?></span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="blog-item">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="bi-pic set-bg" data-setbg="<?php echo get_template_directory_uri() ?>/img/blog/blog-2.jpg"></div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="bi-text">
-                                <ul>
-                                    <li><i class="fa fa-calendar-o"></i> August 9, 2019</li>
-                                    <li><i class="fa fa-commenting-o"></i> 0</li>
-                                </ul>
-                                <h4><a href="#">Everything Coming to Netflix Canada in May 2019</a></h4>
-                                <p>Never ever think of giving up. Winners never quit and</p>
-                                <div class="bt-author">
-                                    <div class="ba-pic">
-                                        <img src="<?php echo get_template_directory_uri() ?>/img/blog/author-1.jpg" alt="">
-                                    </div>
-                                    <div class="ba-text">
-                                        <h5>Aaron Russell</h5>
-                                        <span>Content</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+            <?php }
+            } else {
+                // Постов не найдено
+            }
+
+            // Возвращаем оригинальные данные поста. Сбрасываем $post.
+            wp_reset_postdata();
+            ?>
         </div>
     </div>
 </div>
