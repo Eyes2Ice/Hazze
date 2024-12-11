@@ -219,21 +219,6 @@ get_header();
 
 <!-- Call To Action Section Begin -->
 <?php echo do_shortcode('[pink-banner]') ?>
-<!-- <section class="callto-section set-bg" data-setbg="<?php echo get_template_directory_uri() ?>/img/ctc-bg.jpg">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-10 m-auto">
-                <div class="ctc-text">
-                    <h2>We Create Trends For The World</h2>
-                    <p>Donec faucibus consequat ante. Mauris eget mi sed ex efficitur porta id non quam. Cras
-                        aliquam turpis tellus, quis laoreet lacus congue sed. Nullam at est quis urna vestibulum
-                        interdum. Praesent auctor leo ut massa ultrices tempor.</p>
-                    <a href="#" class="primary-btn ctc-btn">Work With Us</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section> -->
 <!-- Call To Action Section End -->
 
 <!-- Member Section Begin -->
