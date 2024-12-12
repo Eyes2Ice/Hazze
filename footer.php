@@ -87,15 +87,16 @@
             <div class="copyright-text">
                 <p>
                     <?php if (get_field('is_auto-count', 'options')) {
-                        the_field('footer_copy-auto', 'options') ?>
-                        <script>
+                        the_field('footer_copy', 'options'); ?>
+                        &copy; <script>
                             document.write(new Date().getFullYear());
                         </script>
-                        <?php } else {
-                        the_field('footer_copy', 'options');
-                    }
-                        ?>&nbsp;
-                        <?php the_field('footer_copy-second', 'options') ?>
+                    <?php the_field('footer_copy-second-count', 'option');
+                    } else {
+                        the_field('footer_copy', 'options'); ?>
+                        &copy;
+                    <?php the_field('footer_copy-second', 'options');
+                    } ?>
                 </p>
             </div>
         </div>
