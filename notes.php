@@ -1,3 +1,6 @@
+Пути картинок
+<?php echo get_template_directory_uri() ?>/img/
+
 Вывод обычного поля
 <?php the_field('field') ?>
 

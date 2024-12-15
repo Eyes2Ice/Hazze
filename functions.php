@@ -142,7 +142,9 @@ function foobar_shortcode()
 }
 
 add_filter('excerpt_length', function () {
-	return 15;
+	return 15; 
 });
 
 add_filter('excerpt_more', fn() => '...');
+
+require 'breadcrumbs.php';

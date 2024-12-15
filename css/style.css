@@ -1005,6 +1005,10 @@ ol {
 	color: #5c5c5c;
 }
 
+.breadcrumb-option a span {
+	color: #b3b3b3;
+}
+
 .breadcrumb-text {
 	text-align: right;
 }
