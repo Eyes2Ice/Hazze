@@ -16,7 +16,7 @@ get_header();
             </div>
             <div class="col-lg-6 col-md-6 text-right">
                 <div class="breadcrumb-text">
-                    <h3>About Us</h3>
+                    <h3><?php the_title(); ?></h3>
                 </div>
             </div>
         </div>
@@ -30,38 +30,30 @@ get_header();
         <div class="row">
             <div class="col-lg-6">
                 <div class="as-pic">
-                    <img src="<?php echo get_template_directory_uri() ?>/img/about-us.jpg" alt="">
+                    <img src="<?php echo get_field('about-us_photo')['url'] ?>" alt="<?php echo get_field('about-us_photo')['alt'] ?>">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="as-text ap-text">
                     <div class="section-title">
-                        <span>About us</span>
-                        <h2>About Story</h2>
+                        <span><?php the_field('about-us_subtitle') ?></span>
+                        <h2><?php the_field('about-us_title') ?></h2>
                     </div>
-                    <p class="f-para">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. </p>
-                    <p class="s-para">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                        eiusmod.Tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet,
-                        consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                        aliqua. </p>
+                    <p class="f-para"><?php the_field('about-us_description') ?></p>
                     <div class="about-counter">
-                        <div class="ac-item">
-                            <h2 class="ab-count">8384</h2>
-                            <p>Member</p>
-                        </div>
-                        <div class="ac-item">
-                            <h2 class="ab-count">6880</h2>
-                            <p>Partner</p>
-                        </div>
-                        <div class="ac-item">
-                            <h2 class="ab-count">1546</h2>
-                            <p>Branch</p>
-                        </div>
-                        <div class="ac-item">
-                            <h2 class="ab-count">4677</h2>
-                            <p>Designs</p>
-                        </div>
+                        <?php
+                        if (have_rows('numbers_repeater')):
+                            while (have_rows('numbers_repeater')) : the_row(); ?>
+                                <div class="ac-item">
+                                    <h2 class="ab-count"><?php the_sub_field('repeater_number') ?></h2>
+                                    <p><?php the_sub_field('repeater_description') ?></p>
+                                </div>
+                                <?php the_sub_field('sub_field'); ?>
+                        <?php endwhile;
+                        else :
+                            echo 'Ошибка: поля не найдены';
+                        endif;
+                        ?>
                     </div>
                 </div>
             </div>
@@ -76,141 +68,73 @@ get_header();
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title">
-                    <span>Our Team</span>
-                    <h2>Top Designers</h2>
+                    <span><?php the_field('members_subtitle') ?></span>
+                    <h2><?php the_field('members_title') ?></h2>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-4 col-md-6">
-                <div class="member-item set-bg" data-setbg="<?php echo get_template_directory_uri() ?>/img/member/member-1.jpg">
-                    <div class="mi-text">
-                        <p>Quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora
-                            incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
-                        <div class="mt-title">
-                            <h4>Jacob Gomez</h4>
-                            <span>Designer</span>
-                        </div>
-                        <div class="mt-social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa fa-pinterest"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="member-item set-bg" data-setbg="<?php echo get_template_directory_uri() ?>/img/member/member-2.jpg">
-                    <div class="mi-text">
-                        <p>Quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora
-                            incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
-                        <div class="mt-title">
-                            <h4>Jacob Gomez</h4>
-                            <span>Designer</span>
-                        </div>
-                        <div class="mt-social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa fa-pinterest"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="member-item set-bg" data-setbg="<?php echo get_template_directory_uri() ?>/img/member/member-3.jpg">
-                    <div class="mi-text">
-                        <p>Quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora
-                            incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
-                        <div class="mt-title">
-                            <h4>Jacob Gomez</h4>
-                            <span>Designer</span>
-                        </div>
-                        <div class="mt-social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa fa-pinterest"></i></a>
+            <?php
+            // задаем нужные нам критерии выборки данных из БД
+            if (get_field('members')) {
+                $members = get_field('members');
+            } else {
+                $members = 6;
+            }
+            $args = array(
+                'posts_per_page' => get_field('members'),
+                'post_type' => 'our-team',
+            );
+
+            $query = new WP_Query($args);
+
+            // Цикл
+            if ($query->have_posts()) {
+                while ($query->have_posts()) {
+                    $query->the_post(); ?>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="member-item set-bg" data-setbg="<?php echo get_the_post_thumbnail_url(); ?>">
+                            <div class="mi-text <?php
+                                                $pinkMiText = get_field('ourteam_pink-card');
+                                                if ($pinkMiText) echo 'mi-text--pink';
+                                                ?>">
+                                <?php the_content(); ?>
+                                <div class="mt-title">
+                                    <h4><?php the_title(); ?></h4>
+                                    <span><?php the_field('ourteam_position') ?></span>
+                                </div>
+                                <div class="mt-social">
+                                    <?php
+                                    if (have_rows('ourteam-repeater')):
+                                        while (have_rows('ourteam-repeater')) : the_row(); ?>
+                                            <a href="<?php the_sub_field('link'); ?>"><i class="fa fa-<?php the_sub_field('social'); ?>"></i></a>
+                                    <?php endwhile;
+                                    else :
+                                        echo 'Ошибка: поля не найдены';
+                                    endif;
+                                    ?>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="member-item set-bg" data-setbg="<?php echo get_template_directory_uri() ?>/img/member/member-4.jpg">
-                    <div class="mi-text">
-                        <p>Quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora
-                            incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
-                        <div class="mt-title">
-                            <h4>Jacob Gomez</h4>
-                            <span>Designer</span>
-                        </div>
-                        <div class="mt-social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa fa-pinterest"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="member-item set-bg" data-setbg="<?php echo get_template_directory_uri() ?>/img/member/member-5.jpg">
-                    <div class="mi-text">
-                        <p>Quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora
-                            incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
-                        <div class="mt-title">
-                            <h4>Jacob Gomez</h4>
-                            <span>Designer</span>
-                        </div>
-                        <div class="mt-social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa fa-pinterest"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="member-item set-bg" data-setbg="<?php echo get_template_directory_uri() ?>/img/member/member-6.jpg">
-                    <div class="mi-text">
-                        <p>Quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora
-                            incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
-                        <div class="mt-title">
-                            <h4>Jacob Gomez</h4>
-                            <span>Designer</span>
-                        </div>
-                        <div class="mt-social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa fa-pinterest"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+            <?php }
+            } else {
+                // Постов не найдено
+            }
+
+            // Возвращаем оригинальные данные поста. Сбрасываем $post.
+            wp_reset_postdata();
+            ?>
+
         </div>
     </div>
 </section>
 <!-- Member Section End -->
 
 <!-- Call To Action Section Begin -->
-<section class="callto-section set-bg" data-setbg="<?php echo get_template_directory_uri() ?>/img/ctc-bg.jpg">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-10 m-auto">
-                <div class="ctc-text">
-                    <h2>We Create Trends For The World</h2>
-                    <p>Donec faucibus consequat ante. Mauris eget mi sed ex efficitur porta id non quam. Cras
-                        aliquam turpis tellus, quis laoreet lacus congue sed. Nullam at est quis urna vestibulum
-                        interdum. Praesent auctor leo ut massa ultrices tempor.</p>
-                    <a href="#" class="primary-btn ctc-btn">Work With Us</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<?php echo do_shortcode('[pink-banner]') ?>
 <!-- Call To Action Section End -->
 
 <?php get_footer(); ?>
