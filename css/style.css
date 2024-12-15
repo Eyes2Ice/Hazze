@@ -1162,6 +1162,13 @@ ol {
 	padding: 5px 26px;
 }
 
+.categories-custom {
+	display: flex;
+	justify-self: center;
+	flex-wrap: wrap;
+	gap: 5px;
+}
+
 .blog-hero-section .bh-text h2 {
 	font-size: 60px;
 	color: #ffffff;
