@@ -934,6 +934,10 @@ ol {
 	margin-top: -10px;
 }
 
+.comment-form .wpcf7-not-valid-tip {
+	padding-left: 6px;
+}
+
 .wpcf7-spinner {
 	display: none;
 }
@@ -1389,8 +1393,8 @@ ol {
 	margin-bottom: 36px;
 }
 
-.comment-form input,
-.contact-form input {
+.comment-form input:not([type=submit]),
+.contact-form input:not([type=submit]) {
 	height: 50px;
 	width: 100%;
 	border: none;
@@ -1401,7 +1405,7 @@ ol {
 	-webkit-transition: all 0.3s;
 	-o-transition: all 0.3s;
 	transition: all 0.3s;
-	margin-bottom: 30px;
+	margin-bottom: 20px;
 }
 
 .comment-form input::-webkit-input-placeholder,
@@ -1474,7 +1478,7 @@ ol {
 	-webkit-transition: all 0.3s;
 	-o-transition: all 0.3s;
 	transition: all 0.3s;
-	margin-bottom: 45px;
+	margin-bottom: 30px;
 }
 
 .comment-form textarea::-webkit-input-placeholder,
@@ -1896,4 +1900,22 @@ ol {
 	.contact-text .ct-item .ci-icon span {
 		font-size: 22px;
 	}
+}
+
+.custom-content p {
+	font-size: 17px;
+	line-height: 30px;
+}
+
+.bd-text .custom-content .wp-block-gallery {
+	gap: 30px;
+	flex-wrap: nowrap;
+}
+
+.wp-block-heading {
+	font-family: "Libre Franklin", sans-serif;
+	font-size: 24px;
+	color: #ffffff;
+	font-weight: 700;
+	margin-bottom: 20px;
 }
