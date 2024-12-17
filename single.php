@@ -54,11 +54,15 @@ get_header();
                         </div>
                         <div class="social-share">
                             <span>Share:</span>
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-google-plus"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa fa-youtube-play"></i></a>
+                            <?php
+                            if (have_rows('share_social', 'options')):
+                                while (have_rows('share_social', 'options')) : the_row(); ?>
+                                    <a href="<?php the_sub_field('share_social-link', 'options') ?>"><i class="fa fa-<?php the_sub_field('share_social-name', 'options') ?>"></i></a>
+                            <?php endwhile;
+                            else :
+                                echo 'Ошибка: поля не найдены';
+                            endif;
+                            ?>
                         </div>
                     </div>
                     <div class="blog-author">
