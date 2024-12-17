@@ -48,9 +48,13 @@ get_header();
                     </div>
                     <div class="tag-share">
                         <div class="tags">
-                            <a href="#">Camera</a>
-                            <a href="#">Photography</a>
-                            <a href="#">Tips</a>
+                            <?php
+                            global $post;
+                            $tags = get_the_tags($post->ID);
+                            foreach ($tags as $key => $value) {
+                                echo '<a href="#">' . $value->name . '</a>';
+                            }
+                            ?>
                         </div>
                         <div class="social-share">
                             <span>Share:</span>
