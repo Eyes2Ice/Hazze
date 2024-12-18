@@ -1919,3 +1919,13 @@ ol {
 	font-weight: 700;
 	margin-bottom: 20px;
 }
+
+.footer-option a {
+	color: #b3b3b3;
+	transition: all;
+}
+
+.footer-option a:hover {
+	color: #e32879;
+	transition: all 0.3s;
+}
